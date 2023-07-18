@@ -8,11 +8,10 @@ export async function GET() {
   const token = cookieStore.get("accessToken");
 
   // token 없을때 401 Unauthorized error
-  if (!token) return NextResponse.json({ message: "no user" }, { status: 401 });
-
-  const { value } = token;
+  if (!token) return new Response(null, { status: 204 });
 
   // jwt verify if token is valid or not
+  const { value } = token;
   if (value) {
     const user = jwt.verify(value, "os4O91fJW8WzpBkbrQqpcNHdBTMEL4C6");
     return new Response(JSON.stringify(user), {
