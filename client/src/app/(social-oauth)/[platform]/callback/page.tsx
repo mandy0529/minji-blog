@@ -1,9 +1,14 @@
 import SocialLogin from "@/components/SocialLogin";
 import { getAccessToken } from "@/utils/get-social-token";
 
-async function GoogleRedirectPage(props: any) {
+async function RedirectPage(props: any) {
+  const {
+    params: { platform },
+    searchParams: { code },
+  } = props;
+
   // google callback page에서 getAccessToken()를 호출 => 로그인한 유저 token get
-  const result = await getAccessToken(props, "google");
+  const result = await getAccessToken(code, platform);
 
   return (
     <div>
@@ -16,4 +21,4 @@ async function GoogleRedirectPage(props: any) {
   );
 }
 
-export default GoogleRedirectPage;
+export default RedirectPage;
