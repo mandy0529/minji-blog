@@ -17,8 +17,8 @@ import { PrismaService } from '../prisma/prisma.service';
 @Injectable()
 export class AuthService {
   constructor(private prisma: PrismaService, private jwt: JwtService) {}
-  // google login
-  async googleLogin(dto: SignupDto) {
+  // social login (naver, kakao , google)
+  async socialLogin(dto: SignupDto) {
     const existUser = await this.prisma.user.findUnique({
       where: {
         email: dto.email,

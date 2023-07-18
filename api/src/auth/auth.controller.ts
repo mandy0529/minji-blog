@@ -48,7 +48,7 @@ export class AuthController {
       role: 'USER',
     } as SignupDto;
 
-    return this.authService.googleLogin(dto);
+    return this.authService.socialLogin(dto);
   }
 
   // kakao login ---------------------------------------------------------
@@ -58,9 +58,21 @@ export class AuthController {
 
   @Get('kakao/redirect')
   @UseGuards(AuthGuard('kakao'))
-  async kakaoAuthRedirect(@Req() req: Request): Promise<kakaoTokenType> {
+  async kakaoAuthRedirect(@Req() req: Request) {
     const user = req.user as kakaoTokenType;
-    return this.authService.kakaoLogin(user);
+
+    const { email, name, profile, provider, accessToken } = user;
+
+    const dto = {
+      email,
+      name,
+      profile,
+      password: accessToken,
+      provider: provider,
+      role: 'USER',
+    } as SignupDto;
+
+    return this.authService.socialLogin(dto);
   }
 
   // naver login --------------------------------------------------------
@@ -72,7 +84,19 @@ export class AuthController {
   @UseGuards(AuthGuard('naver'))
   async naverAuthRedirect(@Req() req: Request) {
     const user = req.user as naverTokenType;
-    return this.authService.naverLogin(user);
+
+    const { email, name, profile, provider, accessToken } = user;
+
+    const dto = {
+      email,
+      name,
+      profile,
+      password: accessToken,
+      provider: provider,
+      role: 'USER',
+    } as SignupDto;
+
+    return this.authService.socialLogin(dto);
   }
 
   // signup -------------------------------------------------------------
