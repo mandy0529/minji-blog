@@ -19,16 +19,19 @@ export class AuthService {
   constructor(private prisma: PrismaService, private jwt: JwtService) {}
   // social login (naver, kakao , google)
   async socialLogin(dto) {
+    // 내 prisma에서 찾기
     const existUser = await this.prisma.user.findUnique({
       where: {
         email: dto.email,
       },
     });
 
+    // 지금 해당 provider를 제외한 나머지 platform 확인
     const [checkFirstProvider, checkSecondProvider] = this.checkOtherPlatform(
       dto.provider,
     );
 
+    // 다른 platform에 해당 email로 로그인 되어 있는 경우 찾기
     const existOtherProviderUser = await this.prisma.user.findFirst({
       where: {
         email: dto.email,
@@ -39,7 +42,7 @@ export class AuthService {
       },
     });
 
-    // 다른 platform에 해당 email로 로그인되어있는경우
+    // 다른 platform에 해당 email로 로그인 되어  있는경우 가입안시키고, 에러 날려주기
     if (existOtherProviderUser) {
       console.log('이미 가입된 계정입니다.');
       throw new ForbiddenException(
@@ -47,7 +50,7 @@ export class AuthService {
       );
     }
 
-    // google로그인한 user가 내 db에 없을때 새로 생성
+    // google 로그인한 user가 내 db에 없을때 새로 생성
     if (!existUser) {
       const newUser = await this.prisma.user.create({
         data: {
@@ -90,15 +93,6 @@ export class AuthService {
 
     // return token
     return token;
-  }
-
-  // kakao login
-  kakaoLogin(user: kakaoTokenType): kakaoTokenType {
-    return user;
-  }
-  // naver login
-  naverLogin(user: naverTokenType): naverTokenType {
-    return user;
   }
 
   // signup
