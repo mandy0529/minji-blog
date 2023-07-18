@@ -3,6 +3,8 @@
 import { makeRequest } from "@/api/axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { deleteCookie } from "cookies-next";
+
 async function getUser() {
   try {
     const result = await fetch("/api/auth/cookie", {
@@ -59,6 +61,13 @@ const Navbar = () => {
     console.log(data, "private data");
   };
 
+  const handleLogout = () => {
+    deleteCookie("accessToken");
+    deleteCookie("refreshToken");
+
+    window.location.reload();
+  };
+
   const isLogin = userInfo.id ? true : false;
 
   useEffect(() => {
@@ -76,6 +85,9 @@ const Navbar = () => {
             <Link className="mr-10" href="/dashboard">
               Dashboard
             </Link>
+            <Link href="/" onClick={handleLogout}>
+              Logout
+            </Link>
             {/* <button
                 type="button"
                 className="bg-blue-500 p-3 mx-3"
@@ -83,7 +95,7 @@ const Navbar = () => {
               >
                 accesstoken generate Click
               </button> */}
-            <div className="bg-blue-600 p-3">
+            <div className="bg-blue-600 p-3 mx-5">
               <h6>LOGIN USER : {userInfo?.email}</h6>
               <h6>USER ROLE : {userInfo?.role}</h6>
             </div>
