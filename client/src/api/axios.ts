@@ -98,8 +98,6 @@ makeRequest.interceptors.response.use(
           },
         })
         .then((res: AxiosResponse) => {
-          console.log(res, "res");
-
           setCookie("accessToken", res.data.access_token);
           processQueue(null);
 

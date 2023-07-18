@@ -3,7 +3,6 @@ import { JwtService } from '@nestjs/jwt';
 import {
   tokenType,
   accessTokenType,
-  googleTokenType,
   kakaoTokenType,
   naverTokenType,
 } from './types';
@@ -12,8 +11,6 @@ import { Prisma } from '@prisma/client';
 import { LoginDto, SignupDto } from './dto';
 import { rtPayload } from './strategy';
 import { PrismaService } from '../prisma/prisma.service';
-import { access } from 'fs';
-import { create } from 'domain';
 
 // --------------------------------------------------------------
 
