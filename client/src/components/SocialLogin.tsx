@@ -17,7 +17,11 @@ const SocialLogin = ({ refresh_token, access_token }: tokenType) => {
     router.push("/");
   }, []);
 
-  return <div>Social-login</div>;
+  return (
+    <div className="flex items-start justify-center mt-10 font-semibold text-4xl">
+      로그인중 ...
+    </div>
+  );
 };
 
 export default SocialLogin;
