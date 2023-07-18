@@ -1,11 +1,6 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import {
-  tokenType,
-  accessTokenType,
-  kakaoTokenType,
-  naverTokenType,
-} from './types';
+import { tokenType, accessTokenType } from './types';
 import * as bcrypt from 'bcrypt';
 import { Prisma } from '@prisma/client';
 import { LoginDto, SignupDto } from './dto';
