@@ -5,7 +5,7 @@ import { setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-const SocialLogin = ({ refresh_token, access_token }: tokenType) => {
+const SocialLoginLoading = ({ refresh_token, access_token }: tokenType) => {
   // router
   const router = useRouter();
 
@@ -18,10 +18,10 @@ const SocialLogin = ({ refresh_token, access_token }: tokenType) => {
   }, []);
 
   return (
-    <div className="flex items-start justify-center mt-10 font-semibold text-4xl">
+    <div className="flex items-start justify-center mt-10 font-semibold text-3xl">
       로그인중 ...
     </div>
   );
 };
 
-export default SocialLogin;
+export default SocialLoginLoading;

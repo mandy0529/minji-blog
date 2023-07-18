@@ -1,4 +1,4 @@
-import SocialLogin from "@/components/SocialLogin";
+import SocialLoginLoading from "@/components/SocialLoginLoading";
 import { getAccessToken } from "@/utils/get-social-token";
 
 async function RedirectPage(props: any) {
@@ -13,7 +13,7 @@ async function RedirectPage(props: any) {
   return (
     <div>
       {/* props socialLogin에 넘겨주기 */}
-      <SocialLogin
+      <SocialLoginLoading
         refresh_token={result.refresh_token}
         access_token={result.access_token}
       />
