@@ -60,9 +60,10 @@ export class BlogController {
 
   // delete single blog
   @UseGuards(AuthGuard('jwt-access'))
-  @Delete()
+  @Delete(':id')
   @HttpCode(HttpStatus.OK)
-  deleteBlog() {
-    return this.blogService.deleteBlog();
+  deleteBlog(@Req() req: Request, @Param('id') blogId: number) {
+    const user = req.user as { id: string };
+    return this.blogService.deleteBlog(user.id, Number(blogId));
   }
 }

@@ -88,5 +88,25 @@ export class BlogService {
   }
 
   // delete single blog -----------------------------------------------
-  deleteBlog() {}
+  async deleteBlog(userId: string, blogId: number) {
+    // 해당 blogId와 userId로 블로그 내 db에서 찾기
+    const existBlog = await this.prisma.blog.findFirst({
+      where: {
+        id: blogId,
+        authorId: userId,
+      },
+    });
+
+    // blog가 없으면
+    if (!existBlog)
+      return new NotFoundException(`blog not found with id ${blogId}`);
+
+    // blog있으면 내 db에서 삭제시켜주기
+    await this.prisma.blog.delete({
+      where: {
+        id: blogId,
+      },
+    });
+    return 'successfully deleted blog';
+  }
 }
