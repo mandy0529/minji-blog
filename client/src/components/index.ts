@@ -1,4 +1,4 @@
 export * from "./Navbar";
-export * from "./Provider";
 export * from "./SocialLoginLoading";
-export * from "./theme-provider";
+export * from "./ModeToggle";
+export * from "./provider/index";
