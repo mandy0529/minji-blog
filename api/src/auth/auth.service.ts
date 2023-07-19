@@ -60,6 +60,7 @@ export class AuthService {
         email: newUser.email,
         role: newUser.role,
         name: newUser.name,
+        profile: newUser.profile,
       };
 
       // generate token
@@ -78,6 +79,7 @@ export class AuthService {
       id: existUser.id,
       email: existUser.email,
       role: existUser.role,
+      profile: existUser.profile,
     };
 
     // generate token
@@ -141,6 +143,7 @@ export class AuthService {
       id: existUser.id,
       email: existUser.email,
       role: existUser.role,
+      profile: existUser.profile,
     };
 
     // generate token
@@ -195,6 +198,7 @@ export class AuthService {
       id: existUser.id,
       email: existUser.email,
       role: existUser.role,
+      profile: existUser.profile,
     };
 
     const access_token = await this.createAccessToken(payload);
