@@ -32,16 +32,16 @@ yarn start:dev
 - 필요한 types 구성
 - social login 위한 각각 플랫폼의 developer 설정 필수
 
-1. **@Post('signup')**
-2. **@Post('login')**
-3. **@Post('logout') @UseGuards(AuthGuard('jwt-access'))**
-4. **@Post('refreshToken') @UseGuards(AuthGuard('jwt-refresh'))**
-5. **@Get('google') @UseGuards(AuthGuard('google'))**
-6. **@Get('google/redirect') @UseGuards(AuthGuard('google'))**
-7. **@Get('kakao') @UseGuards(AuthGuard('kakao'))**
-8. **@Get('kakao/redirect') @UseGuards(AuthGuard('kakao'))**
-9. **@Get('naver') @UseGuards(AuthGuard('naver'))**
-10. **@Get('naver/redirect') @UseGuards(AuthGuard('naver'))**
+1. **signup user** @Post('signup')
+2. **login user** @Post('login')
+3. **logout user** @Post('logout') @UseGuards(AuthGuard('jwt-access'))
+4. **create refreshtoken** @Post('refreshToken') @UseGuards(AuthGuard('jwt-refresh'))
+5. **google login** @Get('google') @UseGuards(AuthGuard('google'))
+6. **google login redirect** @Get('google/redirect') @UseGuards(AuthGuard('google'))
+7. **kakao login** @Get('kakao') @UseGuards(AuthGuard('kakao'))
+8. **kakao login redirect** @Get('kakao/redirect') @UseGuards(AuthGuard('kakao'))
+9. **naver login** @Get('naver') @UseGuards(AuthGuard('naver'))
+10. **naver login redirect** @Get('naver/redirect') @UseGuards(AuthGuard('naver'))
 
 > 3. user 구성
 
@@ -50,10 +50,21 @@ yarn start:dev
 - protected routing 구성 위한 controller 구성
 - 보호 받아야할 아이만 access strategy 추가
 
-1. **@Get('') @UseGuards(AuthGuard('jwt-access'))**
-2. **@Get('pub')**
+1. **Get my user** @Get('') @UseGuards(AuthGuard('jwt-access'))
+2. **Get public all users** @Get('pub')
 
 > 4.  blog 구성
+
+#### /api/v1/blog
+
+- protected routing 구성 위한 controller 구성
+- 보호 받아야할 아이만 access strategy 추가
+
+1. **Create Blog** @Post('') @UseGuards(AuthGuard('jwt-access'))
+2. **Get all Blog** @Get('')
+3. **Get Single Blog** @Get(':id') @UseGuards(AuthGuard('jwt-access'))
+4. **Edit Blog**@Edit(':id') @UseGuards(AuthGuard('jwt-access'))
+5. **Delete Blog** @Delete(':id') @UseGuards(AuthGuard('jwt-access'))
 
 <hr/>
 
