@@ -4,6 +4,7 @@ import { tokenType } from "@/app/types";
 import { setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { Progress } from "./ui";
 
 export const SocialLoginLoading = ({
   refresh_token,
@@ -21,8 +22,9 @@ export const SocialLoginLoading = ({
   }, []);
 
   return (
-    <div className="flex items-start justify-center mt-10 font-semibold text-3xl">
-      로그인중 ...
+    <div className="flex flex-col items-center justify-center h-screen">
+      <div className="text-center mb-4">...progress in logging in</div>
+      <Progress value={77} className="max-w-lg" />
     </div>
   );
 };

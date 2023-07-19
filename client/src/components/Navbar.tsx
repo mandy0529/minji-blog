@@ -35,7 +35,7 @@ export const Navbar = () => {
         {isLogin ? (
           <>
             {userInfo.profile ? (
-              <Image
+              <img
                 width={40}
                 height={40}
                 className="mr-3 rounded-full"
