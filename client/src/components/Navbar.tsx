@@ -2,77 +2,25 @@
 
 import { makeRequest } from "@/api/axios";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { deleteCookie } from "cookies-next";
-
-async function getUser() {
-  try {
-    const result = await fetch("/api/auth/cookie", {
-      cache: "no-store",
-    });
-    return {
-      user: (await result.json()) as UserInfo,
-      error: null,
-    };
-  } catch (e) {
-    const error = e;
-
-    return {
-      user: null,
-      error,
-    };
-  }
-}
-
-interface UserInfo {
-  id: string;
-  email: string;
-  name: string;
-  role: string;
-}
+import { useUserInfo } from "@/hook";
 
 export const Navbar = () => {
-  const [userInfo, setUserInfo] = useState({
-    id: "",
-    email: "",
-    name: "",
-    role: "",
-  });
-  const userInit = async () => {
-    const data = await getUser();
+  const { userInfo, isLogin } = useUserInfo();
 
-    const { user, error } = data;
-
-    if (error || !user) {
-      return;
-    }
-
-    const { id, email, name, role } = user;
-    setUserInfo({
-      id,
-      email,
-      name,
-      role,
-    });
-  };
-
+  // handleAccTokenGenerate
   const handleAccessToken = async () => {
     const data = await makeRequest.get("/user");
     console.log(data, "private data");
   };
 
+  // handleLogout
   const handleLogout = () => {
     deleteCookie("accessToken");
     deleteCookie("refreshToken");
 
     window.location.reload();
   };
-
-  const isLogin = userInfo.id ? true : false;
-
-  useEffect(() => {
-    userInit();
-  }, []);
 
   return (
     <nav className="m-5">
