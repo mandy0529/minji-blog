@@ -12,8 +12,11 @@ export async function GET() {
 
   // jwt verify if token is valid or not
   const { value } = token;
+
   if (value) {
-    const user = jwt.verify(value, "os4O91fJW8WzpBkbrQqpcNHdBTMEL4C6");
+    const user = jwt.verify(value, process.env.NEXT_PUBLIC_JWT_SECRET);
+    console.log(user, "nextserver user@@");
+
     return new Response(JSON.stringify(user), {
       status: 200,
     });
