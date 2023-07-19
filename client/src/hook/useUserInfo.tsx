@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
 interface UserInfoType {
-  id: "";
-  email: "";
-  name: "";
-  role: "";
+  id: string;
+  email: string;
+  name: string;
+  profile: string;
 }
 async function getUser() {
   try {
@@ -30,7 +30,7 @@ export function useUserInfo() {
     id: "",
     email: "",
     name: "",
-    role: "",
+    profile: "",
   });
 
   // get user init
@@ -43,12 +43,13 @@ export function useUserInfo() {
       return;
     }
 
-    const { id, email, name, role } = user;
+    const { id, email, name, profile } = user;
+
     setUserInfo({
       id,
       email,
-      name,
-      role,
+      name: name ? name : email.split("@")[0],
+      profile,
     });
   };
 
