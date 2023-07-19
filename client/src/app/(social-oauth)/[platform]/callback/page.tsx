@@ -1,4 +1,4 @@
-import SocialLoginLoading from "@/components/SocialLoginLoading";
+import { SocialLoginLoading } from "@/components";
 import { getAccessToken } from "@/utils/get-social-token";
 
 async function RedirectPage(props: any) {

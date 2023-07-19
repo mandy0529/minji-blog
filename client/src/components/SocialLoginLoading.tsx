@@ -5,7 +5,10 @@ import { setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-const SocialLoginLoading = ({ refresh_token, access_token }: tokenType) => {
+export const SocialLoginLoading = ({
+  refresh_token,
+  access_token,
+}: tokenType) => {
   // router
   const router = useRouter();
 
@@ -23,5 +26,3 @@ const SocialLoginLoading = ({ refresh_token, access_token }: tokenType) => {
     </div>
   );
 };
-
-export default SocialLoginLoading;

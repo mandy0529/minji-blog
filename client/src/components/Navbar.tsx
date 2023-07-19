@@ -31,7 +31,7 @@ interface UserInfo {
   role: string;
 }
 
-const Navbar = () => {
+export const Navbar = () => {
   const [userInfo, setUserInfo] = useState({
     id: "",
     email: "",
@@ -114,5 +114,3 @@ const Navbar = () => {
     </nav>
   );
 };
-
-export default Navbar;
