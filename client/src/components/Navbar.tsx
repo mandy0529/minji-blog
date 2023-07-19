@@ -1,18 +1,15 @@
 "use client";
 
-import { makeRequest } from "@/api/axios";
 import Link from "next/link";
 import { deleteCookie } from "cookies-next";
 import { useUserInfo } from "@/hook";
+import { ModeToggle } from "./ModeToggle";
+import { Button } from "./ui";
+import { UserCircle2 } from "lucide-react";
+import Image from "next/image";
 
 export const Navbar = () => {
   const { userInfo, isLogin } = useUserInfo();
-
-  // handleAccTokenGenerate
-  const handleAccessToken = async () => {
-    const data = await makeRequest.get("/user");
-    console.log(data, "private data");
-  };
 
   // handleLogout
   const handleLogout = () => {
@@ -23,41 +20,51 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="m-5">
-      <div className="flex">
-        <Link className="mr-3" href="/">
+    <nav className="m-5 flex items-center justify-between">
+      <div>
+        <Link className="mr-5" href="/">
           Home
         </Link>
+        <Link className="mr-3" href="/dashboard">
+          Dashboard
+        </Link>
+      </div>
+
+      <div className="flex items-center">
+        {/* login state에 따른 buttons */}
         {isLogin ? (
-          <div className="flex justify-between">
-            <Link className="mr-10" href="/dashboard">
-              Dashboard
+          <>
+            {userInfo.profile ? (
+              <Image
+                width={40}
+                height={40}
+                className="mr-3 rounded-full"
+                src={userInfo.profile}
+                alt={userInfo.name}
+              />
+            ) : (
+              <UserCircle2 className="mr-3" />
+            )}
+            <div className="mr-3">{userInfo.name}</div>
+            <Link href="/" className="mr-3">
+              <Button variant={"outline"} onClick={handleLogout}>
+                Logout
+              </Button>
             </Link>
-            <Link href="/" onClick={handleLogout}>
-              Logout
-            </Link>
-            {/* <button
-                type="button"
-                className="bg-blue-500 p-3 mx-3"
-                onClick={handleAccessToken}
-              >
-                accesstoken generate Click
-              </button> */}
-            <div className="bg-blue-600 p-3 mx-5">
-              <h6>LOGIN USER : {userInfo?.email}</h6>
-              <h6>USER ROLE : {userInfo?.role}</h6>
-            </div>
-          </div>
+          </>
         ) : (
           <>
             <Link className="mr-3" href="/login">
-              Login
+              <Button>Login</Button>
             </Link>
             <Link className="mr-3" href="/register">
-              Register
+              <Button variant={"secondary"}>Register</Button>
             </Link>
           </>
         )}
+
+        {/* theme mode toggle button */}
+        <ModeToggle />
       </div>
     </nav>
   );
