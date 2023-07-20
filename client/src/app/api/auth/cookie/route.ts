@@ -15,7 +15,6 @@ export async function GET() {
 
   if (value) {
     const user = jwt.verify(value, process.env.NEXT_PUBLIC_JWT_SECRET);
-    console.log(user, "nextserver user@@");
 
     return new Response(JSON.stringify(user), {
       status: 200,
