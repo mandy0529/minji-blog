@@ -27,6 +27,7 @@ async function getUser() {
 }
 
 export function useUserInfo() {
+  const pathname = usePathname();
   const [userInfo, setUserInfo] = useState<UserInfoType>({
     id: "",
     email: "",
@@ -54,7 +55,7 @@ export function useUserInfo() {
       profile,
     });
   };
-  const pathname = usePathname();
+
   useEffect(() => {
     userInit();
   }, [pathname]);
