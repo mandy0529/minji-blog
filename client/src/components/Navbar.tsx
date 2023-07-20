@@ -34,18 +34,18 @@ export const Navbar = () => {
         {/* login state에 따른 buttons */}
         {isLogin ? (
           <>
-            {userInfo.profile ? (
+            {userInfo?.profile ? (
               <img
                 width={40}
                 height={40}
                 className="mr-3 rounded-full"
-                src={userInfo.profile}
-                alt={userInfo.name}
+                src={userInfo?.profile}
+                alt={userInfo?.name}
               />
             ) : (
               <UserCircle2 className="mr-3" />
             )}
-            <div className="mr-3">{userInfo.name}</div>
+            <div className="mr-3">{userInfo?.name}</div>
             <Link href="/" className="mr-3">
               <Button variant={"outline"} onClick={handleLogout}>
                 Logout
