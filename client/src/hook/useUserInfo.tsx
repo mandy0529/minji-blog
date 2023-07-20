@@ -1,3 +1,4 @@
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface UserInfoType {
@@ -53,10 +54,10 @@ export function useUserInfo() {
       profile,
     });
   };
-
+  const pathname = usePathname();
   useEffect(() => {
     userInit();
-  }, []);
+  }, [pathname]);
 
   // isLogin state
   const isLogin = userInfo?.id ? true : false;
