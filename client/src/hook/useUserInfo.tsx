@@ -43,12 +43,13 @@ export function useUserInfo() {
       return;
     }
 
+    if (!user) return;
     const { id, email, name, profile } = user;
 
     setUserInfo({
       id,
       email,
-      name: name ? name : email.split("@")[0],
+      name: name ? name : email?.split("@")[0],
       profile,
     });
   };
@@ -58,7 +59,7 @@ export function useUserInfo() {
   }, []);
 
   // isLogin state
-  const isLogin = userInfo.id ? true : false;
+  const isLogin = userInfo?.id ? true : false;
 
   return { userInfo, isLogin };
 }
