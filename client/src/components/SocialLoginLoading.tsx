@@ -24,7 +24,6 @@ export const SocialLoginLoading = ({
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <div className="text-center mb-4">...progress in logging in</div>
-      <Progress value={77} className="max-w-lg" />
     </div>
   );
 };
