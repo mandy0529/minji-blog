@@ -6,3 +6,4 @@ export * from "./navigation-menu";
 export * from "./progress";
 export * from "./input";
 export * from "./select";
+export * from "./skeleton";
