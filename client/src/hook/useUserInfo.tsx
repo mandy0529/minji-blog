@@ -28,6 +28,7 @@ async function getUser() {
 
 export function useUserInfo() {
   const pathname = usePathname();
+  const [loading, setLoading] = useState(true);
   const [userInfo, setUserInfo] = useState<UserInfoType>({
     id: "",
     email: "",
@@ -37,7 +38,11 @@ export function useUserInfo() {
 
   // get user init
   const userInit = async () => {
+    setLoading(true);
     const data = await getUser();
+    setLoading(false);
+
+    console.log(data, "data");
 
     const { user, error } = data;
 
@@ -45,9 +50,10 @@ export function useUserInfo() {
       return;
     }
 
-    if (!user) return;
+    // user있으면 destructuring
     const { id, email, name, profile } = user;
 
+    // user state 정해주기
     setUserInfo({
       id,
       email,
@@ -56,6 +62,7 @@ export function useUserInfo() {
     });
   };
 
+  // pahtname에 따라 내 유저 정보 불러오기
   useEffect(() => {
     userInit();
   }, [pathname]);
@@ -63,5 +70,5 @@ export function useUserInfo() {
   // isLogin state
   const isLogin = userInfo?.id ? true : false;
 
-  return { userInfo, isLogin };
+  return { userInfo, isLogin, loading };
 }

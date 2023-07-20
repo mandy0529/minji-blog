@@ -6,9 +6,11 @@ import { useUserInfo } from "@/hook";
 import { ModeToggle } from "./ModeToggle";
 import { Button } from "./ui";
 import { UserCircle2 } from "lucide-react";
+import { NavSkeleton } from "./skeleton/Nav.skeleton";
 
 export const Navbar = () => {
-  const { userInfo, isLogin } = useUserInfo();
+  // useUserInfo hook
+  const { userInfo, isLogin, loading } = useUserInfo();
 
   // handleLogout
   const handleLogout = () => {
@@ -29,8 +31,9 @@ export const Navbar = () => {
       </div>
 
       <div className="flex items-center">
-        {/* login state에 따른 buttons */}
-        {isLogin ? (
+        {loading ? (
+          <NavSkeleton />
+        ) : isLogin ? (
           <>
             {userInfo?.profile ? (
               <img
@@ -38,7 +41,6 @@ export const Navbar = () => {
                 height={40}
                 className="mr-3 rounded-full"
                 src={userInfo?.profile}
-                alt={userInfo?.name}
               />
             ) : (
               <UserCircle2 className="mr-3" />
@@ -61,7 +63,6 @@ export const Navbar = () => {
           </>
         )}
 
-        {/* theme mode toggle button */}
         <ModeToggle />
       </div>
     </nav>
