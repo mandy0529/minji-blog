@@ -6,7 +6,6 @@ import { useUserInfo } from "@/hook";
 import { ModeToggle } from "./ModeToggle";
 import { Button } from "./ui";
 import { UserCircle2 } from "lucide-react";
-import Image from "next/image";
 
 export const Navbar = () => {
   const { userInfo, isLogin } = useUserInfo();
@@ -15,7 +14,6 @@ export const Navbar = () => {
   const handleLogout = () => {
     deleteCookie("accessToken");
     deleteCookie("refreshToken");
-
     window.location.reload();
   };
 
