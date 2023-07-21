@@ -1,7 +1,7 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-interface UserInfoType {
+export interface UserInfoType {
   id: string;
   email: string;
   name: string;
