@@ -24,10 +24,12 @@ export class BlogService {
         author: {
           select: {
             email: true,
+            profile: true,
           },
         },
       },
     });
+
     return blog;
   }
 
