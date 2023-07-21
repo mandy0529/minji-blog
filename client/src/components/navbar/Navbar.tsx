@@ -12,7 +12,7 @@ export const Navbar = () => {
   const { userInfo, isLogin, loading } = useUserInfo();
 
   return (
-    <div className="fixed top-0 inset-x-0 h-fit bg-slate-50  border-b  z-[10] py-4">
+    <div className="fixed top-0 inset-x-0 h-fit   border-b  z-[10] py-4">
       <div className="container max-w-8xl h-full mx-auto flex items-center justify-between gap-2">
         {/* logo */}
         <Link href="/" className="flex gap-2 items-center">
@@ -46,22 +46,3 @@ export const Navbar = () => {
     </div>
   );
 };
-
-{
-  /* <div className="flex items-center">
-          {loading ? (
-            <NavSkeleton />
-          ) : isLogin ? (
-            <UserAccountNav user={userInfo} loading={loading} />
-          ) : (
-            <>
-              <Link className="mr-3" href="/login">
-                <Button className="">Login</Button>
-              </Link>
-              <Link className="mr-3" href="/register">
-                <Button>Register</Button>
-              </Link>
-            </>
-          )}
-        </div> */
-}
