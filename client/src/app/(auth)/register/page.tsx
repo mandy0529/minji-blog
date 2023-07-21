@@ -203,14 +203,20 @@ const Page = () => {
         </div>
         {/* kakao  */}
         <div className="flex items-center mb-3 mr-5">
-          <Button variant={"outline"}>
+          <Button
+            onClick={() => handleSocialLogin("kakao")}
+            variant={"outline"}
+          >
             <KakaoSvg width="30" height="30" />
           </Button>
           <div className="ml-4">kakao 가입</div>
         </div>
         {/* naver */}
         <div className="flex items-center mb-3 mr-5">
-          <Button variant={"outline"}>
+          <Button
+            onClick={() => handleSocialLogin("naver")}
+            variant={"outline"}
+          >
             <NaverSvg width="30" height="30" color="rgb(68, 190, 45)" />
           </Button>
           <div className="ml-4">naver 가입</div>
