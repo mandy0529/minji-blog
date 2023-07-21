@@ -10,21 +10,24 @@ export const SocialLoginLoading = (result: any) => {
   // router
   const router = useRouter();
 
+  // result값이 Error일때
   if (result.result?.error) {
     toast({
       title: "There was a problem",
       description: `${result.result?.message}`,
       variant: "destructive",
     });
+    // result 성공 했을때
+  } else {
+    // cookie 설정
+    setCookie("accessToken", result.result?.access_token);
+    setCookie("refreshToken", result.result?.refresh_token);
+    toast({
+      title: "success",
+      description: "successfully logined",
+    });
   }
 
-  // cookie 설정
-  setCookie("accessToken", result.result?.access_token);
-  setCookie("refreshToken", result.result?.refresh_token);
-  // toast({
-  //   title: "success",
-  //   description: "successfully logined",
-  // });
   useEffect(() => {
     router.push("/");
   }, []);
