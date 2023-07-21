@@ -24,22 +24,15 @@ import { authAPI } from "@/api/auth";
 import { signupType } from "@/app/types";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hook";
-
-// zod setting
-const userSchema = z.object({
-  email: z.string().email({ message: "must be a vaild email." }),
-  password: z.string().min(8, "Password must be at least 8 characters"),
-  role: z.string(),
-  name: z.string(),
-});
+import { SignupValidator } from "@/lib/validators/auth";
 
 const Page = () => {
   const { toast } = useToast();
   const { push } = useRouter();
 
   // define my custom form with z
-  const form = useForm<z.infer<typeof userSchema>>({
-    resolver: zodResolver(userSchema),
+  const form = useForm<z.infer<typeof SignupValidator>>({
+    resolver: zodResolver(SignupValidator),
   });
 
   const { handleSubmit, control } = form;
@@ -81,7 +74,7 @@ const Page = () => {
   };
 
   // onSubmit
-  const onSubmit: SubmitHandler<z.infer<typeof userSchema>> = (
+  const onSubmit: SubmitHandler<z.infer<typeof SignupValidator>> = (
     data: signupType
   ) => {
     mutate(data);
@@ -199,7 +192,7 @@ const Page = () => {
           >
             <GoogleSvg width="30" height="30" />
           </Button>
-          <div className="ml-4">google 가입</div>
+          <div className="ml-4">signup</div>
         </div>
         {/* kakao  */}
         <div className="flex items-center mb-3 mr-5">
@@ -209,7 +202,7 @@ const Page = () => {
           >
             <KakaoSvg width="30" height="30" />
           </Button>
-          <div className="ml-4">kakao 가입</div>
+          <div className="ml-4"> signup</div>
         </div>
         {/* naver */}
         <div className="flex items-center mb-3 mr-5">
@@ -219,7 +212,7 @@ const Page = () => {
           >
             <NaverSvg width="30" height="30" color="rgb(68, 190, 45)" />
           </Button>
-          <div className="ml-4">naver 가입</div>
+          <div className="ml-4"> signup</div>
         </div>
       </div>
     </div>

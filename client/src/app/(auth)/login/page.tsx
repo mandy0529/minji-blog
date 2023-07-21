@@ -20,20 +20,15 @@ import { loginType, tokenType } from "../../types";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hook";
 import { setCookie } from "cookies-next";
+import { loginValidator } from "@/lib/validators/auth";
 
 const Page = () => {
   const { toast } = useToast();
   const router = useRouter();
 
-  // zod setting
-  const userSchema = z.object({
-    email: z.string().email({ message: "must be a vaild email." }),
-    password: z.string(),
-  });
-
   // define my custom form with z
-  const form = useForm<z.infer<typeof userSchema>>({
-    resolver: zodResolver(userSchema),
+  const form = useForm<z.infer<typeof loginValidator>>({
+    resolver: zodResolver(loginValidator),
   });
 
   const { handleSubmit, control } = form;
@@ -77,7 +72,7 @@ const Page = () => {
   };
 
   // onSubmit
-  const onSubmit: SubmitHandler<z.infer<typeof userSchema>> = (
+  const onSubmit: SubmitHandler<z.infer<typeof loginValidator>> = (
     data: loginType
   ) => {
     console.log(data, "submit value");
@@ -149,7 +144,7 @@ const Page = () => {
           >
             <GoogleSvg width="30" height="30" />
           </Button>
-          <div className="ml-4">google 로그인</div>
+          <div className="ml-4">login</div>
         </div>
         {/* kakao  */}
         <div className="flex items-center mb-3 mr-5">
@@ -159,7 +154,7 @@ const Page = () => {
           >
             <KakaoSvg width="30" height="30" />
           </Button>
-          <div className="ml-4">kakao 로그인</div>
+          <div className="ml-4">login</div>
         </div>
         {/* naver */}
         <div className="flex items-center mb-3 mr-5">
@@ -169,7 +164,7 @@ const Page = () => {
           >
             <NaverSvg width="30" height="30" color="rgb(68, 190, 45)" />
           </Button>
-          <div className="ml-4">naver 로그인</div>
+          <div className="ml-4">login</div>
         </div>
       </div>
     </div>
