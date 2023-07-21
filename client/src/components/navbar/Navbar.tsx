@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useUserInfo } from "@/hook";
 import { Button } from "../ui";
 import { UserAccountNav } from "./UserAccountNav";
-import { HomeSvg } from "../icon";
 import UserAvatar from "./UserAvatar";
+import { HomeSvg } from "../icon";
 
 export const Navbar = () => {
   // useUserInfo hook
@@ -16,14 +16,14 @@ export const Navbar = () => {
       <div className="container max-w-8xl h-full mx-auto flex items-center justify-between gap-2">
         {/* logo */}
         <Link href="/" className="flex gap-2 items-center">
-          <HomeSvg width="30" height="30" />
+          <HomeSvg width="40" height="40" />
           <p className="hidden text-zinc-600  text-sm font-medium md:block">
             Minji Blog
           </p>
         </Link>
 
         {/* search bar */}
-        {/* <SearchBar /> */}
+        {/* ✅ ADD TODO : search bar */}
 
         {/* isLogin & loading상태에 따른 navbar 구현 */}
         <div className="flex items-center">
