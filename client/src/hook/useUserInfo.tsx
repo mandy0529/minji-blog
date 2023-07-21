@@ -42,8 +42,6 @@ export function useUserInfo() {
     const data = await getUser();
     setLoading(false);
 
-    console.log(data, "data");
-
     const { user, error } = data;
 
     if (error || !user) {
