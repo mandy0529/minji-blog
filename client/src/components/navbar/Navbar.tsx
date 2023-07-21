@@ -12,12 +12,12 @@ export const Navbar = () => {
   const { userInfo, isLogin, loading } = useUserInfo();
 
   return (
-    <div className="fixed top-0 inset-x-0 h-fit bg-zinc-100 border-b border-zinc-300 z-[10] py-3">
+    <div className="fixed top-0 inset-x-0 h-fit bg-slate-50  border-b  z-[10] py-4">
       <div className="container max-w-8xl h-full mx-auto flex items-center justify-between gap-2">
         {/* logo */}
         <Link href="/" className="flex gap-2 items-center">
           <HomeSvg width="30" height="30" />
-          <p className="hidden text-zinc-700 text-sm font-medium md:block">
+          <p className="hidden text-zinc-600  text-sm font-medium md:block">
             Minji Blog
           </p>
         </Link>
