@@ -1,12 +1,13 @@
 // user api
 
+import { CreateBlogType } from "@/app/types";
 import { makeRequest } from "./axios";
 
 const baseURL = "/blog";
 
 export const blogAPI = {
   // create blog
-  createBlog: async (payload: any) => {
+  createBlog: async (payload: CreateBlogType) => {
     const { data } = await makeRequest.post(`${baseURL}`, payload);
     return data;
   },

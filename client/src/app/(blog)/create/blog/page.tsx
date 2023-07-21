@@ -4,10 +4,12 @@ import { useRouter } from "next/navigation";
 import * as z from "zod";
 import { useMutation } from "@tanstack/react-query";
 import { blogValidator } from "@/lib/validators/blog";
-import { toast, useCustomToasts } from "@/hook";
+import { toast } from "@/hook";
 import { blogAPI } from "@/api/blog";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { addHashtags } from "@/utils/add-hash-tag";
+import { CreateBlogType } from "@/app/types";
 import {
   Button,
   Form,
@@ -26,14 +28,13 @@ const Page = () => {
     resolver: zodResolver(blogValidator),
   });
 
-  const { handleSubmit, control, watch } = form;
+  const { handleSubmit, control } = form;
 
   const router = useRouter();
-  const { loginToast } = useCustomToasts();
 
   // tanstack query
   const { mutate, isLoading } = useMutation({
-    mutationFn: (data) => blogAPI.createBlog(data),
+    mutationFn: (data: CreateBlogType) => blogAPI.createBlog(data),
     onError: (error) => {
       // toast notification
       console.log(error, "create blog error");
@@ -56,8 +57,9 @@ const Page = () => {
 
   // onSubmit
   const onSubmit: SubmitHandler<z.infer<typeof blogValidator>> = (data) => {
-    console.log(data, "submit value");
-    // mutate(data);
+    const hashtag = addHashtags(data.tag);
+    const formatData = { ...data, tag: hashtag };
+    mutate(formatData);
   };
 
   return (
@@ -126,7 +128,12 @@ const Page = () => {
           )}
         />
         {/* submit button */}
-        <Button className=" mt-5" type="submit">
+        <Button
+          disabled={!form.formState.isValid}
+          className=" mt-5"
+          type="submit"
+          isLoading={isLoading}
+        >
           Create Blog
         </Button>
       </form>

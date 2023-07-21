@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
+import { IsArray, IsNotEmpty, IsString, MaxLength } from 'class-validator';
 
 export class CreateBlogDto {
   @IsString()
@@ -12,7 +12,7 @@ export class CreateBlogDto {
   })
   content: string;
 
-  @IsString()
+  @IsArray()
   @IsNotEmpty()
   tag: string;
 }
