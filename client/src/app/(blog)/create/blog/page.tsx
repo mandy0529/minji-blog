@@ -37,8 +37,6 @@ const Page = () => {
     mutationFn: (data: CreateBlogType) => blogAPI.createBlog(data),
     onError: (error) => {
       // toast notification
-      console.log(error, "create blog error");
-
       toast({
         title: "Failed to create Blog",
         //  @ts-ignore
