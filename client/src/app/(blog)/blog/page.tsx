@@ -1,7 +1,7 @@
 "use client";
 import { blogAPI } from "@/api/blog";
 import UserAvatar from "@/components/navbar/UserAvatar";
-import { Button, buttonVariants } from "@/components/ui";
+import { Button } from "@/components/ui";
 import { toast } from "@/hook";
 import { useQuery } from "@tanstack/react-query";
 import { ChevronRight } from "lucide-react";
@@ -42,19 +42,19 @@ const page = () => {
   }
 
   return (
-    <section className="mt-16">
+    <section className="mt-16 grid grid-cols-4 ">
       {data?.map((blog: BlogType) => {
         const { content, id, author, title } = blog;
 
         return (
           <div
             key={id}
-            className="max-w-sm p-6 my-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+            className="max-w-sm p-6 my-5 mx-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
           >
             <div className="flex items-center">
               <UserAvatar user={author} />
               <h5 className="mb-2 ml-5 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                {title}
+              {title.length > 10 ? title.slice(0, 10) : title}
               </h5>
             </div>
 
