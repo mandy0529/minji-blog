@@ -20,7 +20,7 @@ export const blogAPI = {
 
   // get single blog
   getSingleBlog: async (id: number) => {
-    const { data } = await makeRequest.post(`${baseURL}/${id}`);
+    const { data } = await makeRequest.get(`${baseURL}/${id}`);
     return data;
   },
 
