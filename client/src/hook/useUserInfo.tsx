@@ -1,3 +1,4 @@
+import { setCookie } from "cookies-next";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -7,13 +8,28 @@ export interface UserInfoType {
   name?: string;
   profile: string;
 }
+
 async function getUser() {
   try {
-    const result = await fetch("/api/auth/cookie", {
+    const response = await fetch("/api/auth/cookie", {
       cache: "no-store",
     });
+    const data = await response.json();
+
+    // accesstoken 만료 되서, 새로 발급받은 accesstoken 새로 갈아끼우고, return user
+    if (data.result) {
+      if (data.result.access_token) {
+        setCookie("accessToken", data.result.access_token);
+        return {
+          user: data.result.user as UserInfoType,
+          error: null,
+        };
+      }
+    }
+
+    // 로그인 처음 했을떄 user return
     return {
-      user: (await result.json()) as UserInfoType,
+      user: data as UserInfoType,
       error: null,
     };
   } catch (e) {

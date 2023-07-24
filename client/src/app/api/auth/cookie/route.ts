@@ -11,15 +11,58 @@ export async function GET() {
   if (!token) return new Response(null, { status: 204 });
 
   // jwt verify if token is valid or not
-  const { value } = token;
-
-  if (value) {
+  try {
+    const { value } = token;
+    // @ts-ignore
     const user = jwt.verify(value, process.env.NEXT_PUBLIC_JWT_SECRET);
 
     return new Response(JSON.stringify(user), {
       status: 200,
     });
-  } else {
+  } catch (error) {
+    if (error instanceof Error) {
+      // tokenExpiredError일떄 refreshToken api쳐주기
+      if (
+        error.name === "TokenExpiredError" ||
+        error.name === "JsonWebTokenError"
+      ) {
+        // cookie에서 나의 refreshToeken 얻기
+        const token = cookieStore.get("refreshToken");
+
+        // refreshToken api 치기
+        const response = await fetch(
+          "http://localhost:3333/api/v1/auth/refreshToken",
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token?.value}`,
+            },
+          }
+        );
+        const { access_token } = await response.json();
+
+        // jwt verify with access_token
+        const user = jwt.verify(
+          access_token,
+          // @ts-ignore
+          process.env.NEXT_PUBLIC_JWT_SECRET
+        );
+
+        // 옳으면 result에 내 유저 담아서 보내기
+        return NextResponse.json(
+          {
+            result: {
+              user,
+              access_token,
+            },
+          },
+          {
+            status: 200,
+          }
+        );
+      }
+    }
+    // 뭔가 그냥 잘못되었을때
     return NextResponse.json(
       {
         message: "Something went wrong",
