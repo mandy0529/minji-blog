@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateBlogDto, EditBlogDto } from './dto';
-import { blogType } from './types';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
@@ -44,6 +43,7 @@ export class BlogService {
         author: {
           select: {
             email: true,
+            profile: true,
           },
         },
       },
