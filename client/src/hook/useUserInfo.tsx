@@ -2,9 +2,9 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export interface UserInfoType {
-  id: string;
+  id?: string;
   email: string;
-  name: string;
+  name?: string;
   profile: string;
 }
 async function getUser() {
