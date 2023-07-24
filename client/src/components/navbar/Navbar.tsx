@@ -17,7 +17,7 @@ export const Navbar = () => {
         {/* logo */}
         <Link href="/" className="flex gap-2 items-center">
           <HomeSvg width="40" height="40" />
-          <p className="hidden text-zinc-600  text-sm font-medium md:block">
+          <p className="hidden text-zinc-400  text-xl font-medium md:block ml-3">
             Minji Blog
           </p>
         </Link>
