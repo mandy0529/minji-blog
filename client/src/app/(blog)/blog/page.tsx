@@ -42,7 +42,7 @@ const page = () => {
   }
 
   return (
-    <section className="mt-16 grid grid-cols-4 ">
+    <section className="mt-16 grid grid-cols-1-auto sm:grid-cols-2-auto md:grid-cols-3-auto lg:grid-cols-4-auto">
       {data?.map((blog: BlogType) => {
         const { content, id, author, title } = blog;
 
@@ -54,7 +54,7 @@ const page = () => {
             <div className="flex items-center">
               <UserAvatar user={author} />
               <h5 className="mb-2 ml-5 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-              {title.length > 10 ? title.slice(0, 10) : title}
+              {title.length > 10 ? `${title.slice(0, 10)}...` : title}
               </h5>
             </div>
 

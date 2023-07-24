@@ -16,6 +16,12 @@ module.exports = {
       },
     },
     extend: {
+      gridTemplateColumns:{
+        '1-auto': 'repeat(1, minmax(0, 1fr))',
+        '2-auto': 'repeat(2, minmax(0, 1fr))',
+        '3-auto': 'repeat(3, minmax(0, 1fr))',
+        '4-auto': 'repeat(4, minmax(0, 1fr))',
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
