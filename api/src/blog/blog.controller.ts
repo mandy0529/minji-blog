@@ -17,7 +17,6 @@ import { CreateBlogDto } from './dto/create-blog.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { EditBlogDto } from './dto';
 import { Request } from 'express';
-import { blogType } from './types';
 
 @Controller('blog')
 export class BlogController {
