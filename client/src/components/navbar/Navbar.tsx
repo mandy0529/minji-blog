@@ -4,7 +4,6 @@ import Link from "next/link";
 import {
   Button,
   NavigationMenu,
-  NavigationMenuItem,
   NavigationMenuLink,
   navigationMenuTriggerStyle,
 } from "../ui";

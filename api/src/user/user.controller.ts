@@ -13,7 +13,16 @@ import { Request } from 'express';
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
+  // get my blog
+  @Get('blog')
+  @UseGuards(AuthGuard('jwt-access'))
+  @HttpCode(HttpStatus.OK)
+  getMyBlog(@Req() req: Request) {
+    const user = req.user as { id: string };
+    return this.userService.getMyBlog(user.id);
+  }
 
+  // get user
   @UseGuards(AuthGuard('jwt-access'))
   @Get()
   @HttpCode(HttpStatus.OK)
@@ -22,6 +31,7 @@ export class UserController {
     return this.userService.getUser(user.id);
   }
 
+  // get public
   @Get('pub')
   @HttpCode(HttpStatus.OK)
   getPub(): string {
