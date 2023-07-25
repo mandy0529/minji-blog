@@ -1,7 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { Button } from "../ui";
+import {
+  Button,
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  navigationMenuTriggerStyle,
+} from "../ui";
 import { UserAccountNav } from "./UserAccountNav";
 import UserAvatar from "./UserAvatar";
 import { HomeSvg } from "../icon";
@@ -13,13 +19,23 @@ export const Navbar = () => {
   return (
     <div className="fixed top-0 inset-x-0 h-fit   border-b  z-[10] py-4">
       <div className="container max-w-8xl h-full mx-auto flex items-center justify-between gap-2">
-        {/* logo */}
-        <Link href="/" className="flex gap-2 items-center">
-          <HomeSvg width="40" height="40" />
-          <p className="hidden text-zinc-400  text-xl font-medium md:block ml-3">
-            Minji Blog
-          </p>
-        </Link>
+        <div className="flex items-center">
+          {/* logo */}
+          <Link href="/" className="flex gap-2 items-center">
+            <HomeSvg width="40" height="40" />
+            <p className="hidden text-zinc-400  text-xl font-medium md:block ml-3">
+              Goodday, Minji
+            </p>
+          </Link>
+
+          <NavigationMenu className="ml-5">
+            <Link href="/blog" legacyBehavior passHref>
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                Blogs
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenu>
+        </div>
 
         {/* search bar */}
         {/* ✅ ADD TODO : search bar */}

@@ -6,4 +6,5 @@ export * from "./input";
 export * from "./select";
 export * from "./avatar";
 export * from "./textarea";
-export * from './skeleton'
+export * from "./skeleton";
+export * from "./navigation-menu";

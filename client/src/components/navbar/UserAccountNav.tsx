@@ -7,10 +7,9 @@ import {
 } from "../ui";
 import Link from "next/link";
 import { deleteCookie } from "cookies-next";
-
 import UserAvatar from "./UserAvatar";
-import { UserInfoType } from "@/hook";
 import { FC } from "react";
+import { UserInfoType } from "@/app/context/globalContext";
 
 interface userAccountNavType {
   user: UserInfoType;
@@ -43,7 +42,7 @@ export const UserAccountNav: FC<userAccountNavType> = ({ user }) => {
         </div>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link href="/blog">Blog Feed</Link>
+          <Link href="/my-blog">My Blog</Link>
         </DropdownMenuItem>
 
         <DropdownMenuItem asChild>
