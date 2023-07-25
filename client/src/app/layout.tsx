@@ -5,6 +5,7 @@ import { ThemeProvider, QueryProvider, ModeToggle } from "../components";
 import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Navbar } from "@/components";
+import GlobalContextProvider from "./context/globalContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,13 +23,15 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <QueryProvider>
-            <Navbar />
-            <div className="container max-w-7xl mx-auto h-full pt-12">
-              {children}
-            </div>
-            <ModeToggle />
-          </QueryProvider>
+          <GlobalContextProvider>
+            <QueryProvider>
+              <Navbar />
+              <div className="container max-w-7xl mx-auto h-full pt-12">
+                {children}
+              </div>
+              <ModeToggle />
+            </QueryProvider>
+          </GlobalContextProvider>
           <Toaster />
         </ThemeProvider>
       </body>

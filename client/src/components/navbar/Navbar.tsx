@@ -1,15 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useUserInfo } from "@/hook";
 import { Button } from "../ui";
 import { UserAccountNav } from "./UserAccountNav";
 import UserAvatar from "./UserAvatar";
 import { HomeSvg } from "../icon";
+import { useGlobalContext } from "@/app/context/globalContext";
 
 export const Navbar = () => {
-  // useUserInfo hook
-  const { userInfo, isLogin, loading } = useUserInfo();
+  const { isLogin, loading, userInfo } = useGlobalContext();
 
   return (
     <div className="fixed top-0 inset-x-0 h-fit   border-b  z-[10] py-4">

@@ -1,6 +1,7 @@
+"use client";
+
 import { setCookie } from "cookies-next";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 export interface UserInfoType {
   id?: string;
@@ -9,6 +10,17 @@ export interface UserInfoType {
   profile: string;
 }
 
+interface UserInfoContextType {
+  userInfo: UserInfoType;
+  isLogin: boolean;
+  loading: boolean;
+}
+
+const GlobalContext = createContext<UserInfoContextType>(
+  {} as UserInfoContextType
+);
+
+//   get user function
 async function getUser() {
   try {
     const response = await fetch("/api/auth/cookie", {
@@ -42,8 +54,7 @@ async function getUser() {
   }
 }
 
-export function useUserInfo() {
-  const pathname = usePathname();
+const GlobalContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(true);
   const [userInfo, setUserInfo] = useState<UserInfoType>({
     id: "",
@@ -76,13 +87,21 @@ export function useUserInfo() {
     });
   };
 
-  // pahtname에 따라 내 유저 정보 불러오기
   useEffect(() => {
     userInit();
-  }, [pathname]);
+  }, []);
 
-  // isLogin state
   const isLogin = userInfo?.id ? true : false;
 
-  return { userInfo, isLogin, loading };
-}
+  return (
+    <GlobalContext.Provider value={{ userInfo, isLogin, loading }}>
+      {children}
+    </GlobalContext.Provider>
+  );
+};
+
+export const useGlobalContext = () => {
+  return useContext(GlobalContext);
+};
+
+export default GlobalContextProvider;

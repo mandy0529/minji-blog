@@ -1,15 +1,14 @@
 "use client";
-import { useUserInfo } from "@/hook";
+
+import { useGlobalContext } from "@/app/context/globalContext";
 import { useRouter } from "next/navigation";
 import React from "react";
 
 const layout = ({ children }: { children: React.ReactNode }) => {
   const { push } = useRouter();
-  const { isLogin, loading } = useUserInfo();
+  const { isLogin, loading } = useGlobalContext();
 
-  console.log(isLogin, "isLogin");
-
-  if (loading) return <div>loaindg ... </div>;
+  if (loading) return <div className="mt-20">loading ... </div>;
 
   if (!loading && !isLogin) return push("/login");
 
