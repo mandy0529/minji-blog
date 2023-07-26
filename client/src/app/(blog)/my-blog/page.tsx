@@ -1,15 +1,15 @@
 "use client";
-import { blogAPI } from "@/api/blog";
+
 import { userAPI } from "@/api/user";
+import { BlogType } from "@/app/types";
+import Blog from "@/components/Blog";
 import { toast } from "@/hook";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
 const page = () => {
-  // 로그인한 유저와 blog유저 아이디가 일치하는지 확인
-
   // tanstack query
-  const { isLoading, error, data, isInitialLoading } = useQuery({
+  const { isLoading, error, data } = useQuery({
     queryKey: ["getMyBlog"],
     queryFn: () => userAPI.getMyBlog(),
   });
@@ -24,9 +24,16 @@ const page = () => {
     });
   }
 
-  console.log(data, "data");
-
-  return <div className="mt-20">only my blog page</div>;
+  return (
+    <div>
+      <div className="text-xl font-bold">My Blog</div>
+      <section className="mt-5 grid grid-cols-1-auto sm:grid-cols-2-auto md:grid-cols-3-auto lg:grid-cols-4-auto">
+        {data?.map((blog: BlogType) => {
+          return <Blog key={blog.id} blog={blog} isLoading={isLoading} />;
+        })}
+      </section>
+    </div>
+  );
 };
 
 export default page;
