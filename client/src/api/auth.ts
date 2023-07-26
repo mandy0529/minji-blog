@@ -1,4 +1,4 @@
-// user api
+// auth api
 
 import { makeRequest } from "./axios";
 import { loginType, signupType } from "@/app/types";

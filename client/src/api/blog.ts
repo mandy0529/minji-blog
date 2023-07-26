@@ -1,4 +1,4 @@
-// user api
+// blog api
 
 import { CreateBlogType } from "@/app/types";
 import { makeRequest } from "./axios";
