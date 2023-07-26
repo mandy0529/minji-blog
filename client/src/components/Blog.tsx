@@ -15,7 +15,7 @@ interface IBlogType {
   adminMode: boolean;
 }
 const Blog = ({ blog, isLoading, adminMode }: IBlogType) => {
-  const { content, id, author, title } = blog;
+  const { content, id, author, title, tag } = blog;
 
   // tanstack query delete
   const { mutate: deleteMutate, isLoading: deleteLoading } = useMutation({
@@ -59,6 +59,11 @@ const Blog = ({ blog, isLoading, adminMode }: IBlogType) => {
           </Button>
         </div>
       )}
+      <div className="flex mb-2 opacity-50">
+        {tag?.length > 3
+          ? tag?.map((item) => <div className="mr-2">{item}</div>).slice(0, 3)
+          : tag?.map((item) => <div className="mr-2">{item}</div>)}
+      </div>
       <div className="flex items-center">
         <UserAvatar user={author} />
         <h5 className="mb-2 ml-5 text-xl font-bold tracking-tight text-gray-900 dark:text-white">

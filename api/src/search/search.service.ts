@@ -4,45 +4,59 @@ import { PrismaService } from 'src/prisma/prisma.service';
 @Injectable()
 export class SearchService {
   constructor(private readonly prisma: PrismaService) {}
+  // search result by field
+  async searchByField(keyword: string, field: string) {
+    let where = {};
 
-  // search by created-at
-  async searchByCreatedAt(date: string) {
-    const blogs = await this.prisma.blog.findMany({});
-
-    return 'search by created-at';
+    if (field === 'author') {
+      where = {
+        author: {
+          email: {
+            contains: keyword,
+          },
+        },
+      };
+    } else if (field === 'title') {
+      where = {
+        title: {
+          contains: keyword,
+        },
+      };
+    } else if (field === 'content') {
+      where = {
+        content: {
+          contains: keyword,
+        },
+      };
+    } else if (field === 'tag') {
+      where = {
+        tag: {
+          hasSome: `#${keyword}`,
+        },
+      };
+    }
+    return await this.prisma.blog.findMany({
+      where,
+    });
   }
 
-  // search by author
-  async searchByAuthor(author: string) {
-    const blogs = await this.prisma.blog.findMany({});
-
-    return 'search by author';
-  }
-
-  // search by content or title
-  async searchByContentOrTitle(keyword: string) {
-    const blogs = await this.prisma.blog.findMany({
+  //   search all query
+  async searchAll(keyword: string) {
+    return await this.prisma.blog.findMany({
       where: {
         OR: [
           {
-            title: {
-              contains: keyword,
+            author: {
+              email: {
+                contains: keyword,
+              },
             },
           },
-          {
-            content: {
-              contains: keyword,
-            },
-          },
+          { title: { contains: keyword } },
+          { content: { contains: keyword } },
+          { tag: { hasSome: `#${keyword}` } },
         ],
       },
     });
-    return 'search by content or title';
-  }
-
-  // search by hashtags
-  async searchByHashtag(keyword: string) {
-    const blogs = await this.prisma.blog.findMany({});
-    return 'search by hashtags';
   }
 }
