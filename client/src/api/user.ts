@@ -7,8 +7,6 @@ export const userAPI = {
   // get my blog
   getMyBlog: async () => {
     const { data } = await makeRequest.get(`${baseURL}/blog`);
-    console.log(data, "data");
-
     return data;
   },
 };

@@ -25,7 +25,14 @@ const page = () => {
   return (
     <section className="mt-16 grid grid-cols-1-auto sm:grid-cols-2-auto md:grid-cols-3-auto lg:grid-cols-4-auto">
       {data?.map((blog: BlogType) => {
-        return <Blog key={blog.id} blog={blog} isLoading={isLoading} />;
+        return (
+          <Blog
+            key={blog.id}
+            blog={blog}
+            isLoading={isLoading}
+            adminMode={false}
+          />
+        );
       })}
     </section>
   );

@@ -26,11 +26,22 @@ const page = () => {
 
   return (
     <div>
-      <div className="text-xl font-bold">My Blog</div>
-      <section className="mt-5 grid grid-cols-1-auto sm:grid-cols-2-auto md:grid-cols-3-auto lg:grid-cols-4-auto">
-        {data?.map((blog: BlogType) => {
-          return <Blog key={blog.id} blog={blog} isLoading={isLoading} />;
-        })}
+      <div className="text-xl font-bold text-center">My Blog</div>
+      <section className="mt-10 grid grid-cols-1-auto sm:grid-cols-2-auto md:grid-cols-3-auto lg:grid-cols-4-auto">
+        {data?.length !== 0 ? (
+          data?.map((blog: BlogType) => {
+            return (
+              <Blog
+                key={blog.id}
+                blog={blog}
+                isLoading={isLoading}
+                adminMode={true}
+              />
+            );
+          })
+        ) : (
+          <div className="text-center">No Your Blog</div>
+        )}
       </section>
     </div>
   );

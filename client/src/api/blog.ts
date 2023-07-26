@@ -31,8 +31,8 @@ export const blogAPI = {
   },
 
   // delete single blog
-  deleteSingleBlog: async (id: number, payload: any) => {
-    const { data } = await makeRequest.delete(`${baseURL}/${id}`, payload);
+  deleteSingleBlog: async (id: number) => {
+    const { data } = await makeRequest.delete(`${baseURL}/${id}`);
     return data;
   },
 };
