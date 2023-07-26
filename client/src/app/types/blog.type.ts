@@ -19,3 +19,15 @@ export interface Author {
   email: string;
   profile: string;
 }
+
+export type singleDataType = {
+  author: {
+    email: string;
+    profile: string;
+  };
+  content: string;
+  id: number;
+  title: string;
+  createdAt: Date;
+  tag: string[];
+};

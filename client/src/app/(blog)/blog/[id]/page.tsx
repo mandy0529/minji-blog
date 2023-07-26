@@ -1,39 +1,28 @@
-'use client';
-import { blogAPI } from '@/api/blog';
-import { toast } from '@/hook';
-import { useQuery } from '@tanstack/react-query';
-import { Button, Skeleton } from '@/components/ui';
-import { BlogSkeleton } from '@/components/skeleton/blog.skeleton';
-import UserAvatar from '@/components/navbar/UserAvatar';
-import Markdown from 'markdown-to-jsx';
-import { koreanDateTime } from '@/utils/convert-korean-time';
-
-type singleDataType = {
-  author: {
-    email: string;
-    profile: string;
-  };
-  content: string;
-  id: number;
-  title: string;
-  createdAt: Date;
-  tag: string[];
-};
+"use client";
+import { blogAPI } from "@/api/blog";
+import { toast } from "@/hook";
+import { useQuery } from "@tanstack/react-query";
+import { Button, Skeleton } from "@/components/ui";
+import { BlogSkeleton } from "@/components/skeleton/blog.skeleton";
+import UserAvatar from "@/components/navbar/UserAvatar";
+import Markdown from "markdown-to-jsx";
+import { koreanDateTime } from "@/utils/convert-korean-time";
+import { singleDataType } from "@/app/types";
 
 const page = ({ params }: { params: { id: number } }) => {
   // tanstack query
   const { isLoading, error, data } = useQuery<singleDataType>({
-    queryKey: ['getSingleBlog'],
+    queryKey: ["getSingleBlog"],
     queryFn: () => blogAPI.getSingleBlog(Number(params.id)),
   });
 
   // error 있을때 error toast
   if (error) {
     toast({
-      title: 'Failed to get Blog',
+      title: "Failed to get Blog",
       //  @ts-ignore
       description: `${error?.response?.data?.message}`,
-      variant: 'destructive',
+      variant: "destructive",
     });
   }
 
@@ -51,7 +40,7 @@ const page = ({ params }: { params: { id: number } }) => {
           <div className="flex items-center mb-10">
             <UserAvatar className="mr-3" user={author} />
             <div className="font-bold text-lg">
-              {author.email?.split('@')[0]}님의 글
+              {author.email?.split("@")[0]}님의 글
             </div>
             <div className="ml-3 text-gray-500 dark:text-gray-200">
               {koreanDateTime(createdAt)}
@@ -61,7 +50,7 @@ const page = ({ params }: { params: { id: number } }) => {
           {/* blog info */}
           <div>
             {tag?.map((item) => (
-              <Button className="mr-4" variant={'outline'}>
+              <Button className="mr-4" variant={"outline"}>
                 {item}
               </Button>
             ))}

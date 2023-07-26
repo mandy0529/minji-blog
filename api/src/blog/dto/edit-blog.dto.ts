@@ -1,4 +1,4 @@
-import { IsOptional, IsString, MaxLength } from 'class-validator';
+import { IsArray, IsOptional, IsString, MaxLength } from 'class-validator';
 
 export class EditBlogDto {
   @IsString()
@@ -12,7 +12,7 @@ export class EditBlogDto {
   })
   content?: string;
 
-  @IsString()
+  @IsArray()
   @IsOptional()
   tag?: string;
 }

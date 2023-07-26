@@ -1,15 +1,15 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import * as z from "zod";
-import { useMutation } from "@tanstack/react-query";
+import React from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { blogValidator } from "@/lib/validators/blog";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "@/hook";
 import { blogAPI } from "@/api/blog";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { addHashtags } from "@/utils/add-hash-tag";
-import { CreateBlogType } from "@/app/types";
+import * as z from "zod";
 import {
   Button,
   Form,
@@ -21,24 +21,41 @@ import {
   Input,
   Textarea,
 } from "@/components/ui";
+import { CreateBlogType, singleDataType } from "@/app/types";
 
-const Page = () => {
+const page = ({ params }: { params: { id: number } }) => {
   // define my custom form with z
   const form = useForm<z.infer<typeof blogValidator>>({
     resolver: zodResolver(blogValidator),
   });
 
   const { handleSubmit, control } = form;
-
   const router = useRouter();
 
-  // tanstack query
-  const { mutate, isLoading } = useMutation({
-    mutationFn: (data: CreateBlogType) => blogAPI.createBlog(data),
+  // get single blog tanstack query
+  const { error: singleBlogError, data } = useQuery<singleDataType>({
+    queryKey: ["getSingleBlog"],
+    queryFn: () => blogAPI.getSingleBlog(Number(params.id)),
+    onSuccess: (data) => {
+      form.reset({
+        content: data.content,
+        title: data.title,
+        tag: data.tag.map((item) => item.replace("#", "")).join(","),
+      });
+    },
+    onError: (error) => {
+      console.log(error, "get single data error");
+    },
+  });
+
+  // edit blog  tanstack query
+  const { mutate: editMutate, isLoading: editLoading } = useMutation({
+    mutationFn: (data: CreateBlogType) =>
+      blogAPI.editSingleBlog(Number(params.id), data),
     onError: (error) => {
       // toast notification
       toast({
-        title: "Failed to create Blog",
+        title: "Failed to edit Blog",
         //  @ts-ignore
         description: `${error?.response?.data?.message}`,
         variant: "destructive",
@@ -47,17 +64,21 @@ const Page = () => {
     onSuccess: () => {
       toast({
         title: "success",
-        description: "successfully created blog",
+        description: "successfully edited blog",
       });
-      router.push("/blog");
+      router.push("/my-blog");
     },
   });
 
   // onSubmit
   const onSubmit: SubmitHandler<z.infer<typeof blogValidator>> = (data) => {
+    console.log(data.tag, "@@TTag");
+
     const hashtag = addHashtags(data.tag);
+
     const formatData = { ...data, tag: hashtag };
-    mutate(formatData);
+
+    editMutate(formatData);
   };
 
   return (
@@ -65,7 +86,7 @@ const Page = () => {
       <form className="mt-20" onSubmit={handleSubmit(onSubmit)}>
         {/* title */}
         <div className="text-4xl font-semibold text-center mb-10">
-          Create Blog
+          Edit Blog
         </div>
 
         {/* title */}
@@ -118,10 +139,7 @@ const Page = () => {
               <div className="mb-5">
                 <FormLabel>Tag</FormLabel>
                 <FormControl className="mt-2">
-                  <Input
-                    placeholder="Type hashtag separated by comma"
-                    {...field}
-                  />
+                  <Input placeholder="hashtag" {...field} />
                 </FormControl>
                 <FormMessage />
               </div>
@@ -133,13 +151,13 @@ const Page = () => {
           disabled={!form.formState.isValid}
           className=" mt-5"
           type="submit"
-          isLoading={isLoading}
+          isLoading={editLoading}
         >
-          Create Blog
+          Edit Blog
         </Button>
       </form>
     </Form>
   );
 };
 
-export default Page;
+export default page;

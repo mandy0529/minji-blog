@@ -15,6 +15,7 @@ export const blogAPI = {
   // get all blogs
   getAllBlogs: async () => {
     const { data } = await makeRequest.get(`${baseURL}`);
+
     return data;
   },
 
@@ -25,8 +26,8 @@ export const blogAPI = {
   },
 
   // edit single blog
-  editSingleBlog: async (id: number, payload: any) => {
-    const { data } = await makeRequest.put(`${baseURL}/${id}`, payload);
+  editSingleBlog: async (id: number, payload: CreateBlogType) => {
+    const { data } = await makeRequest.patch(`${baseURL}/${id}`, payload);
     return data;
   },
 

@@ -45,7 +45,7 @@ const Blog = ({ blog, isLoading, adminMode }: IBlogType) => {
     >
       {adminMode && (
         <div className="mb-5">
-          <Link href="/edit/blog">
+          <Link href={`/edit/blog/${id}`}>
             <Button>Edit</Button>
           </Link>
 
@@ -61,8 +61,8 @@ const Blog = ({ blog, isLoading, adminMode }: IBlogType) => {
       )}
       <div className="flex items-center">
         <UserAvatar user={author} />
-        <h5 className="mb-2 ml-5 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-          {title.length > 10 ? `${title.slice(0, 10)}...` : title}
+        <h5 className="mb-2 ml-5 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+          {title.length > 10 ? `${title.slice(0, 8)}...` : title}
         </h5>
       </div>
 
