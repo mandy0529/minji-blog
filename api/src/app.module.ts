@@ -7,6 +7,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './user/user.module';
 import { BlogModule } from './blog/blog.module';
+import { SearchModule } from './search/search.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { BlogModule } from './blog/blog.module';
     PrismaModule,
     UserModule,
     BlogModule,
+    SearchModule,
   ],
   controllers: [AppController],
   providers: [AppService],
