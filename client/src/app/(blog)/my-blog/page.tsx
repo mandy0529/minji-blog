@@ -27,7 +27,7 @@ const page = () => {
   return (
     <div>
       <div className="text-xl font-bold text-center">My Blog</div>
-      <section className="mt-10 grid grid-cols-1-auto sm:grid-cols-2-auto md:grid-cols-3-auto lg:grid-cols-4-auto">
+      <section className="mt-16 grid grid-cols-1-auto sm:grid-cols-1-auto md:grid-cols-2-auto lg:grid-cols-3-auto">
         {data?.length !== 0 ? (
           data?.map((blog: BlogType) => {
             return (
