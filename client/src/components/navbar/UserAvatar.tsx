@@ -1,8 +1,7 @@
 import { FC } from "react";
-import Image from "next/image";
 import { Avatar, AvatarFallback } from "../ui";
 
-import { UserInfoType } from "@/hook";
+import { UserInfoType } from "@/app/context/globalContext";
 import { AvatarProps } from "@radix-ui/react-avatar";
 
 import { User } from "lucide-react";
