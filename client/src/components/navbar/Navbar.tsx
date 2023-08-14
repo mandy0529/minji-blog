@@ -11,6 +11,7 @@ import { UserAccountNav } from "./UserAccountNav";
 import UserAvatar from "./UserAvatar";
 import { HomeSvg } from "../icon";
 import { useGlobalContext } from "@/app/context/globalContext";
+import SearchBar from "../SearchBar";
 
 export const Navbar = () => {
   const { isLogin, loading, userInfo } = useGlobalContext();
@@ -36,13 +37,14 @@ export const Navbar = () => {
           </NavigationMenu>
         </div>
 
-        {/* search bar */}
-        {/* ✅ ADD TODO : search bar */}
-
         {/* isLogin & loading상태에 따른 navbar 구현 */}
+        {/* search bar */}
         <div className="flex items-center">
+          <SearchBar />
+
+          {/* loading에 따른 navbar 구현 */}
           {loading ? (
-            <UserAvatar className="h-8 w-8" user={userInfo} />
+            <UserAvatar className="h-8 w-8 ml-5" user={userInfo} />
           ) : isLogin ? (
             <UserAccountNav user={userInfo} />
           ) : (
