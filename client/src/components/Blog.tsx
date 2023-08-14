@@ -2,7 +2,6 @@ import { Button } from "@/components/ui";
 import UserAvatar from "./navbar/UserAvatar";
 import Markdown from "markdown-to-jsx";
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
 import { BlogType } from "@/app/types";
 import { blogAPI } from "@/api/blog";
 import { toast } from "@/hook";
