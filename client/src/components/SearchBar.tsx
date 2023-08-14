@@ -9,16 +9,12 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator,
-  CommandShortcut,
-  Command,
 } from "./ui";
-import { Search } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { searchAPI } from "@/api/search";
 import { toast } from "@/hook";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { blogAPI } from "@/api/blog";
 
 const SearchBar = () => {
   const { push } = useRouter();
@@ -28,6 +24,12 @@ const SearchBar = () => {
 
   // 디바운스를 구현하기 위한 타이머 상태 변수
   const [debounceTimer, setDebounceTimer] = useState<any>(null);
+
+  // tanstack query
+  const { data: allBlogData } = useQuery({
+    queryKey: ["getAllBlogs"],
+    queryFn: () => blogAPI.getAllBlogs(),
+  });
 
   // tanstack query search all
   const { isLoading, error, data, refetch } = useQuery({
@@ -44,16 +46,7 @@ const SearchBar = () => {
     enabled: false,
   });
 
-  if (error) {
-    toast({
-      title: "Failed to search Blog",
-      //  @ts-ignore
-      description: `${error?.response?.data?.message}`,
-      variant: "destructive",
-    });
-  }
-
-  //   handleModal
+  // handleModal
   const handleEnter = (id: number) => {
     setIsModalOpen(false);
     push(`/blog/${id}`);
@@ -94,14 +87,13 @@ const SearchBar = () => {
   }, [keyword, refetch]);
 
   // useEffect를 사용하여 검색어가 변경될 때마다 이전 검색 결과를 초기화
-  //   useEffect(() => {
-  //     setPrevSearchResults(null);
-  //   }, [keyword]);
+  // useEffect(() => {
+  //   setPrevSearchResults(null);
+  // }, [keyword]);
 
   // 결과를 저장하는 변수를 따로 두고, 이전 검색 결과가 있는 경우에는 해당 결과를 사용하도록 조건 추가
-  //   const searchResults = prevSearchResults || data;
-
-  //   console.log(searchResults, "@@@@@@@@");
+  const searchData =
+    prevSearchResults === null ? allBlogData : prevSearchResults;
 
   return (
     <>
@@ -123,20 +115,19 @@ const SearchBar = () => {
         />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup
-            onChange={(data) => console.log(data)}
-            heading="Suggestions"
-          >
-            {data?.length > 0 &&
-              data?.map((item: any) => (
-                <CommandItem
-                  key={item.id}
-                  onSelect={() => handleEnter(item.id)}
-                  tabIndex={0}
-                >
-                  {item.title}
-                </CommandItem>
-              ))}
+          <CommandGroup heading="Suggestions">
+            {searchData?.length > 0 &&
+              searchData?.map((item: any) => {
+                return (
+                  <CommandItem
+                    key={item.id}
+                    onSelect={() => handleEnter(item.id)}
+                    tabIndex={0}
+                  >
+                    {item.title}
+                  </CommandItem>
+                );
+              })}
           </CommandGroup>
         </CommandList>
       </CommandDialog>
