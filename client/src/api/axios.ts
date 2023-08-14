@@ -1,8 +1,8 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { getCookie, setCookie } from "cookies-next";
 
-const baseURL = "http://localhost:3333/api/v1";
-const refreshURL = "http://localhost:3333/api/v1/auth/refreshToken";
+const baseURL = "http://127.0.0.1:3333/api/v1";
+const refreshURL = "http://127.0.0.1:3333/api/v1/auth/refreshToken";
 
 export const makeRequest = axios.create({
   baseURL,

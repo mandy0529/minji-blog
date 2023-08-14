@@ -31,7 +31,7 @@ export async function GET() {
 
         // refreshToken api 치기
         const response = await fetch(
-          "http://localhost:3333/api/v1/auth/refreshToken",
+          "http://127.0.0.1:3333/api/v1/auth/refreshToken",
           {
             method: "POST",
             headers: {

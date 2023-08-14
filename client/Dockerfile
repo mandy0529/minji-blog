@@ -6,12 +6,11 @@ WORKDIR /app
 
 # Copy package.json and package-lock.json
 COPY package.json ./
-COPY ./prisma/ ./prisma
+
 # Install dependencies
 RUN yarn
 
 ARG NODE_ENV
-
 RUN if [ "$NODE_ENV" = "development" ]; \
     then yarn install; \
     else yarn install --only=production; \
@@ -21,7 +20,7 @@ RUN if [ "$NODE_ENV" = "development" ]; \
 COPY . .
 
 # Expose the port
-EXPOSE 3333
+EXPOSE 3000
 
 # Start the Nest.js application
-CMD ["yarn", "start:dev"]
+CMD ["yarn", "dev"]
