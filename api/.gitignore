@@ -34,8 +34,7 @@ lerna-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 
-# prisma
-/prisma/migrations
+/nginx/*
 
 # env
 .env
