@@ -8,6 +8,7 @@ import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './user/user.module';
 import { BlogModule } from './blog/blog.module';
 import { SearchModule } from './search/search.module';
+import { CommentModule } from './comment/comment.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { SearchModule } from './search/search.module';
     UserModule,
     BlogModule,
     SearchModule,
+    CommentModule,
   ],
   controllers: [AppController],
   providers: [AppService],
