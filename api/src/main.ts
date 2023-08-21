@@ -9,7 +9,7 @@ async function bootstrap() {
 
   // cors
   app.enableCors({
-    origin: 'http://127.0.0.1:3000',
+    origin: process.env.CORS_ORIGIN,
     credentials: true,
   });
   // validation middleware

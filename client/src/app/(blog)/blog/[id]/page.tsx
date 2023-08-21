@@ -9,7 +9,7 @@ import Markdown from "markdown-to-jsx";
 import { koreanDateTime } from "@/utils/convert-korean-time";
 import { singleDataType } from "@/app/types";
 
-const page = ({ params }: { params: { id: number } }) => {
+const Page = ({ params }: { params: { id: number } }) => {
   // tanstack query
   const { isLoading, error, data } = useQuery<singleDataType>({
     queryKey: ["getSingleBlog"],
@@ -49,8 +49,8 @@ const page = ({ params }: { params: { id: number } }) => {
 
           {/* blog info */}
           <div>
-            {tag?.map((item) => (
-              <Button className="mr-4" variant={"outline"}>
+            {tag?.map((item, index) => (
+              <Button key={index} className="mr-4" variant={"outline"}>
                 {item}
               </Button>
             ))}
@@ -65,4 +65,4 @@ const page = ({ params }: { params: { id: number } }) => {
   );
 };
 
-export default page;
+export default Page;

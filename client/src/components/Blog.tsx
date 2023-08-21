@@ -46,8 +46,18 @@ const Blog = ({ blog, isLoading, adminMode }: IBlogType) => {
     >
       <div className="flex mb-2 opacity-50">
         {tag?.length > 3
-          ? tag?.map((item) => <div className="mr-2">{item}</div>).slice(0, 3)
-          : tag?.map((item) => <div className="mr-2">{item}</div>)}
+          ? tag
+              ?.map((item, index) => (
+                <div key={index} className="mr-2">
+                  {item}
+                </div>
+              ))
+              .slice(0, 3)
+          : tag?.map((item, index) => (
+              <div key={index} className="mr-2">
+                {item}
+              </div>
+            ))}
       </div>
       <div className="flex items-center">
         <UserAvatar user={author} />

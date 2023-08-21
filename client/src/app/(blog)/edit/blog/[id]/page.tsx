@@ -23,7 +23,7 @@ import {
 } from "@/components/ui";
 import { CreateBlogType, singleDataType } from "@/app/types";
 
-const page = ({ params }: { params: { id: number } }) => {
+const Page = ({ params }: { params: { id: number } }) => {
   // define my custom form with z
   const form = useForm<z.infer<typeof blogValidator>>({
     resolver: zodResolver(blogValidator),
@@ -160,4 +160,4 @@ const page = ({ params }: { params: { id: number } }) => {
   );
 };
 
-export default page;
+export default Page;

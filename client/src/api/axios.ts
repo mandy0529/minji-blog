@@ -1,14 +1,16 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { getCookie, setCookie } from "cookies-next";
 
-const baseURL = "http://127.0.0.1:3333/api/v1";
-const refreshURL = "http://127.0.0.1:3333/api/v1/auth/refreshToken";
+const baseURL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1`;
+const refreshURL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/auth/refreshToken`;
+
+console.log(baseURL, "baseURL");
+console.log(process.env, "process env");
 
 export const makeRequest = axios.create({
   baseURL,
   withCredentials: true,
 });
-
 // Interceptor
 makeRequest.interceptors.request.use(
   (config: any) => {

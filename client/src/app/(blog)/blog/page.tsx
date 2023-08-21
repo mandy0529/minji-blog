@@ -5,7 +5,7 @@ import Blog from "@/components/Blog";
 import { toast } from "@/hook";
 import { useQuery } from "@tanstack/react-query";
 
-const page = () => {
+const Page = () => {
   // tanstack query
   const { isLoading, error, data } = useQuery({
     queryKey: ["getAllBlogs"],
@@ -38,4 +38,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

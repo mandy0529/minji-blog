@@ -62,7 +62,7 @@ const Page = () => {
   // handleSocialLogin
   const handleSocialLogin = (type: string) => {
     try {
-      window.location.href = `http://127.0.0.1:3333/api/v1/auth/${type}`;
+      window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/auth/${type}`;
     } catch (error) {
       // toast notification
       toast({
