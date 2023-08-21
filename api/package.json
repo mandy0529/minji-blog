@@ -12,6 +12,7 @@
     "prestart:dev": "prisma migrate deploy",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
+    "prestart:prod": "prisma migrate deploy",
     "start:prod": "node dist/main",
     "deploy": "yarn install && yarn build && yarn start:dev",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
