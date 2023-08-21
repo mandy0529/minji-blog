@@ -1,27 +1,30 @@
-# Base image
-FROM node:18
-
-# Set working directory
+# development
+FROM node:18 as development
 WORKDIR /app
-
-# Copy package.json and package-lock.json
 COPY package.json ./
 COPY ./prisma/ ./prisma
-# Install dependencies
 RUN yarn
-
 ARG NODE_ENV
-
 RUN if [ "$NODE_ENV" = "development" ]; \
     then yarn install; \
     else yarn install --only=production; \
     fi
-
-# Copy source code
 COPY . .
-
-# Expose the port
 EXPOSE 3333
-
-# Start the Nest.js application
 CMD ["yarn", "start:dev"]
+
+# production
+FROM node:18 as production
+WORKDIR /app
+COPY package.json ./
+COPY ./prisma/ ./prisma
+RUN yarn
+ARG NODE_ENV
+RUN if [ "$NODE_ENV" = "development" ]; \
+    then yarn install; \
+    else yarn install --only=production; \
+    fi
+COPY . .
+RUN yarn build
+EXPOSE 3333
+CMD ["yarn", "start:prod"]
