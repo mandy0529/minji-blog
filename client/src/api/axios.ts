@@ -4,9 +4,6 @@ import { getCookie, setCookie } from "cookies-next";
 const baseURL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1`;
 const refreshURL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/auth/refreshToken`;
 
-console.log(baseURL, "baseURL");
-console.log(process.env, "process env");
-
 export const makeRequest = axios.create({
   baseURL,
   withCredentials: true,
