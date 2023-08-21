@@ -21,7 +21,8 @@ model User {
   provider String?
   role     Role
 
-  blog Blog[]
+  blog    Blog[]
+  comment Comment[]
 
   @@map("user")
 }
@@ -37,9 +38,10 @@ model Blog {
   updatedAt DateTime @updatedAt
 
   authorId String
-  author   User   @relation(fields: [authorId], references: [id])
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
 
   keyword Keyword[]
+  comment Comment[]
 
   @@map("blog")
 }
@@ -49,6 +51,24 @@ model Keyword {
   keyword String
 
   blog Blog[]
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String   @db.VarChar(1000)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id])
+
+  blogId Int
+  blog   Blog @relation(fields: [blogId], references: [id], onDelete: Cascade)
+
+  parentId Int?
+  parent   Comment?  @relation("ParentChild", fields: [parentId], references: [id], onDelete: Cascade)
+  children Comment[] @relation("ParentChild")
 }
 
 enum Role {
